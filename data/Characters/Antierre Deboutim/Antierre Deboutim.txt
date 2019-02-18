@@ -1,0 +1,17 @@
+Name: Antierre Deboutim
+
+Age: 25
+Height: 6.4
+Weight: 180
+Job: Starving Artist
+favoriteCar: Camaro SS
+
+Background:
+	
+Antierre was born into a poor family in Jamaica.
+His childhood was spent either in gangs or in prison.
+After he accidentally murdered an innocent bystander during a driveby, Antierre vowed to keep out of any gangs.
+Imprisoned for 8 years, He finally recieved his freedom where he decided to earn money in order to teach young children to stay out of gangs.
+With such a philantropic goal, Antierre decided to move to New York in order to make money he could send back to Jamaica.
+After arriving to America, He worked in the gas drilling companies and earned enough money to buy his dream car, the Camaro SS.
+Having his car, Antierre decided to put his driving skills to the test and started racing others in order to earn a quick buck.

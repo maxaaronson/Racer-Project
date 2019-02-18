@@ -1,0 +1,8 @@
+carName    : Mazda RX-8
+horsepower : 232
+accelerate : 5.2
+topSpeed   : 155
+torque     : 159
+RPM        : 8500
+cost       : 26800
+crashFactor: 3.0

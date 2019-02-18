@@ -1,0 +1,8 @@
+carName    : Subaru Outback
+horsepower : 250
+accelerate : 5.9
+topSpeed   : 157
+torque     : 230
+RPM        : 6500
+cost       : 24000
+crashFactor: 2.5

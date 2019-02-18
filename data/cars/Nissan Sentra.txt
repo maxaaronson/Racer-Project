@@ -1,0 +1,8 @@
+carName    : Nissan Sentra
+horsepower : 200
+accelerate : 6.9
+topSpeed   : 147
+torque     : 180
+RPM        : 6600
+cost       : 15500
+crashFactor: 2.5

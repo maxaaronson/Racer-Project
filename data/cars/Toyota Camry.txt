@@ -1,0 +1,8 @@
+carName    : Toyota Camry
+horsepower : 268
+accelerate : 6.7
+topSpeed   : 155
+torque     : 215
+RPM        : 6500
+cost       : 18000
+crashFactor: 2.5

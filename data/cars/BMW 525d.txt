@@ -1,0 +1,8 @@
+carName    : BMW 525d
+horsepower : 245
+accelerate : 5.5
+topSpeed   : 150
+torque     : 400
+RPM        : 7000
+cost       : 58000
+crashFactor: 2.5

@@ -1,0 +1,8 @@
+carName    : Shelby GT500
+horsepower : 540
+accelerate : 4.4
+topSpeed   : 155
+torque     : 510
+RPM        : 6500
+cost       : 44000
+crashFactor: 3.5

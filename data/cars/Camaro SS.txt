@@ -1,0 +1,8 @@
+carName    : Camaro SS
+horsepower : 312
+accelerate : 4.9
+topSpeed   : 145
+torque     : 278
+RPM        : 6500
+cost       : 44000
+crashFactor: 2.5

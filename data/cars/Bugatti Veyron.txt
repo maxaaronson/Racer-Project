@@ -1,0 +1,8 @@
+carName    : Bugatti Veyron
+horsepower : 1001
+accelerate : 2.5
+topSpeed   : 267
+torque     : 922
+RPM        : 8000
+cost       : 1700000
+crashFactor: 4.0

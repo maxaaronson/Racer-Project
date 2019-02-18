@@ -1,0 +1,8 @@
+carName    : Ferrari F430
+horsepower : 483
+accelerate : 4.3
+topSpeed   : 196
+torque     : 343
+RPM        : 8500
+cost       : 168000
+crashFactor: 4.0

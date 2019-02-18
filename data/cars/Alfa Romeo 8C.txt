@@ -1,0 +1,8 @@
+carName    : Alfa Romeo 8C
+horsepower : 444
+accelerate : 4.3
+topSpeed   : 181
+torque     : 350
+RPM        : 7000
+cost       : 241000
+crashFactor: 3.0

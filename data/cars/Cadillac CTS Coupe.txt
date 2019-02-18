@@ -1,0 +1,8 @@
+carName    : Cadillac CTS Coupe
+horsepower : 304
+accelerate : 4.5
+topSpeed   : 165
+torque     : 273
+RPM        : 6400
+cost       : 38165
+crashFactor: 3.0

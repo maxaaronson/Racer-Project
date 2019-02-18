@@ -1,0 +1,8 @@
+carName    : Suzuki Hayabusa
+horsepower : 197
+accelerate : 3.9
+topSpeed   : 185
+torque     : 215
+RPM        : 10200
+cost       : 12000
+crashFactor: 4.5

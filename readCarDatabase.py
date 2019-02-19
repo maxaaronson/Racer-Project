@@ -8,7 +8,6 @@ class readCarDatabase:
         self.__carName = carName
     
     def getHorsepower(self,carName):
-        print(carName)
         Car = self.__cursor.execute('Select horsepower from car where carName = ?',(carName,))
         horsepower = self.__cursor.fetchall()
         horsepower = str(horsepower[-1])

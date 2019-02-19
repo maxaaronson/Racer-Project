@@ -12,7 +12,6 @@ class SpeedAlgorithm:
         self.__RPM = RPM
         self.__crashFactor = crashFactor
         
-#________________________________________________________________________________________________#
 # Speed Generators
     
     def getSpeed1(self,horsepower,RPM,torque):
@@ -48,7 +47,6 @@ class SpeedAlgorithm:
     def getTopSpeed(self):
         return self.__topSpeed
             
-#________________________________________________________________________________________________#
 # Average Speed For Each Gear
 
     def getAvg1(self,speed1):
@@ -71,7 +69,6 @@ class SpeedAlgorithm:
         avg5 = speedGenerator.avg5(speed5)
         return avg5
 
-#________________________________________________________________________________________________#
 # Time Calculators
 
     def getTime1(self,avg1,acceleration):
@@ -98,7 +95,6 @@ class SpeedAlgorithm:
         totalTime = distanceTimeCalculator.totalTime(time1,time2,time3,time4,time5)
         return totalTime
 
-#________________________________________________________________________________________________#
 # Distance Calculators
 
     def getDist1(self,acceleration,time1):
@@ -121,9 +117,7 @@ class SpeedAlgorithm:
         dist5 = distanceTimeCalculator.dist5(self.__acceleration,time5,avg5)
         return dist5
 
-#________________________________________________________________________________________________#
 # 
-
     def copCatch(self):
         copCatch = copAlgorithm.copCatch()
         copEscape = copAlgorithm.copEscape()
@@ -154,7 +148,10 @@ class SpeedAlgorithm:
         
 
     def getMoney(self,crashFactor,bet):
+        print("bet = " + str(bet))
+        print("crashFactor = " + str(crashFactor))
         money = random.uniform(0,1)*crashFactor*int(bet)
+        print("result = " + str(money))
         return money
         
     

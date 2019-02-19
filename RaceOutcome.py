@@ -32,22 +32,14 @@ class RaceOutcome:
             self.img6 = PhotoImage(file = 'data/cars/' + str(racer2) + '.gif')
             ht = self.img6.height()
             wd = self.img6.width()
-            canvas5 = Canvas(self.win_window, \
-                            height = ht, \
-                            width = wd)      
-            canvas5.create_image(0, 0, \
-                                image = self.img6, \
-                                anchor = NW \
-                                )
+            canvas5 = Canvas(self.win_window, height = ht, width = wd)      
+            canvas5.create_image(0, 0, image = self.img6, anchor = NW)
             
             canvas5.pack()
             self.cost = bet
-            self.label= Label(self.win_window, \
-                              text= 'You have been beaten by a random racer with the ' + str(racer2)) 
+            self.label= Label(self.win_window, text= 'You have been beaten by a random racer with the ' + str(racer2)) 
             
-            self.ok_button= Button(self.win_window, \
-                                   text= 'Ok', \
-                                   command = self.quit_result)
+            self.ok_button= Button(self.win_window, text= 'Ok', command = self.quit_result)
         
             self.label.pack()
             self.ok_button.pack()
@@ -115,7 +107,9 @@ class RaceOutcome:
         if result == 1:
             car = readCarDatabase.readCarDatabase(carName)
             moneyWon = racers.moneyEarned(carName,bet)*random.uniform(1,2)
+            print("money won is " + str(moneyWon))
         else:
             car = readCarDatabase.readCarDatabase(carName)
-            moneyWon = racers.moneyEarned(carName,bet)*-1
+            moneyWon = racers.moneyEarned(carName,bet)
+            print("money lost is " + str(moneyWon))
         return moneyWon

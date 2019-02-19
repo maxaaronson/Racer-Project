@@ -25,9 +25,8 @@ class Structure:
 
         # gives the player 90,000 dollars to start with as a demonstration that the upgrades work
         # in the real game we would give the player 2000$
-        moneyBook = open("MoneyFile.txt","w")
-        moneyBook.write(str(90000) + '\n')
-        moneyBook.close()
+        self.moneyBook = 90000
+
         
         # main interface only needs one Frame
         self.top_Frame= Frame(self.main_window, relief="raised", border=2)
@@ -64,12 +63,8 @@ class Structure:
         self.img = PhotoImage(file = 'data/cars/intro_pic.gif')
         ht = self.img.height()
         wd = self.img.width()
-        canvas = Canvas(self.bottom_Frame, \
-            height = ht, \
-            width = wd)      
-        canvas.create_image(0, 0, \
-            image = self.img, \
-            anchor = NW)
+        canvas = Canvas(self.bottom_Frame, height = ht, width = wd)      
+        canvas.create_image(0, 0, image = self.img, anchor = NW)
 
         canvas.pack(side = 'bottom')
         # pack the Frame
@@ -111,38 +106,21 @@ class Structure:
         self.right_Frame= Frame(self.newgame_window)
         self.bottom_Frame= Frame(self.newgame_window)
 
-        self.heading= Label(self.top_Frame,
-            text= 'Please select your character!')
+        self.heading= Label(self.top_Frame, text= 'Please select your character!')
         self.heading.pack()
 
         self.radio_var= IntVar()
         self.radio_var.set(1)
-        self.rb1= Radiobutton(self.left_Frame, \
-            text= '   Antierre Deboutim',\
-            variable= self.radio_var, \
-            value= 1,)
-                             
-        self.rb2= Radiobutton(self.left_Frame, \
-            text= '    Jennifer Tompson', \
-            variable= self.radio_var, \
-            value= 2)
-        self.rb3= Radiobutton(self.left_Frame, \
-            text= "        Tommy O'Reilly", \
-            variable= self.radio_var, \
-            value= 3)
+        self.rb1= Radiobutton(self.left_Frame, text= '   Antierre Deboutim', variable= self.radio_var, value= 1,)
+        self.rb2= Radiobutton(self.left_Frame, text= '    Jennifer Tompson', variable= self.radio_var, value= 2)
+        self.rb3= Radiobutton(self.left_Frame, text= "        Tommy O'Reilly", variable= self.radio_var, value= 3)
         self.rb1.pack()        
         self.rb2.pack()        
         self.rb3.pack()        
 
-        self.antierre= Button(self.right_Frame, \
-            text= 'Background Information', \
-            command= self.antierre_info)
-        self.jennifer= Button(self.right_Frame, \
-            text= 'Background Information', \
-            command= self.jennifer_info)
-        self.tommy= Button(self.right_Frame, \
-            text= 'Background Information', \
-            command= self.tommy_info)
+        self.antierre= Button(self.right_Frame, text= 'Background Information', command= self.antierre_info)
+        self.jennifer= Button(self.right_Frame, text= 'Background Information', command= self.jennifer_info)
+        self.tommy= Button(self.right_Frame, text= 'Background Information', command= self.tommy_info)
         self.antierre.pack()
         self.jennifer.pack()
         self.tommy.pack()
@@ -191,18 +169,13 @@ class Structure:
         self.bottom_Frame= Frame(self.info_window)
 
         self.message= "".join(infile.readlines())
-        self.label= Label(self.top_Frame, \
-            text= self.message)
+        self.label= Label(self.top_Frame, text= self.message)
 
         self.img = PhotoImage(file = image)
         ht = self.img.height()
         wd = self.img.width()
-        canvas = Canvas(self.bottom_Frame, \
-            height = ht, \
-            width = wd)      
-        canvas.create_image(0, 0, \
-            image = self.img, \
-            anchor = NW)
+        canvas = Canvas(self.bottom_Frame, height = ht, width = wd)      
+        canvas.create_image(0, 0, image = self.img, anchor = NW)
         
         canvas.pack()
         self.label.pack()
@@ -255,35 +228,23 @@ class Structure:
         self.bottom_Frame= (self.ingame_screen)
        
         # top Frame
-        self.character_label1= Label(self.top_Frame, \
-                                text= 'Welcome ' + self.character)
+        self.character_label1= Label(self.top_Frame, text= 'Welcome ' + self.character)
         self.characterVar= StringVar()
-        self.character_label2= Label(self.top_Frame, \
-                                    textvariable= self.characterVar)
+        self.character_label2= Label(self.top_Frame, textvariable= self.characterVar)
 
         
         # mid Frame
         self.img = PhotoImage(file = 'data/cars/' + carName + '.gif')
         ht = self.img.height()
         wd = self.img.width()
-        self.ingame_canvas = Canvas(self.ingame_screen, \
-                        height = ht, \
-                        width = wd)      
-        self.ingame_canvas.create_image(0, 0, \
-                            image = self.img, \
-                            anchor = NW \
-                            )
+        self.ingame_canvas = Canvas(self.ingame_screen, height = ht, width = wd)      
+        self.ingame_canvas.create_image(0, 0, image = self.img, anchor = NW)
 
-        self.img2 = PhotoImage(file = 'data/Characters/' + self.character + '/' +
-                                self.character + '.gif')
+        self.img2 = PhotoImage(file = 'data/Characters/' + self.character + '/' + self.character + '.gif')
         ht = self.img2.height()
         wd = self.img2.width()
-        self.ingame_canvas2 = Canvas(self.ingame_screen, \
-                        height = ht, \
-                        width = wd)      
-        self.ingame_canvas2.create_image(0, 0, \
-                            image = self.img2, \
-                            anchor = NW)
+        self.ingame_canvas2 = Canvas(self.ingame_screen, height = ht, width = wd)      
+        self.ingame_canvas2.create_image(0, 0, image = self.img2, anchor = NW)
 
         self.race_button= Button(self.ingame_screen, \
                                  text= '                             \nRace\n                        ', \
@@ -306,50 +267,8 @@ class Structure:
         self.upgrade_button.pack(side = 'left')
         self.back_button.pack(side = 'left')
 
-
         mainloop()
 
-#--------------------------------------------------------------------------------
-# Place a bet
-#--------------------------------------------------------------------------------
-    def place_bet(self):
-        self.total = 0
-        moneyBook = open("MoneyFile.txt","r")
-        line = moneyBook.readline()
-        while line !="":
-            self.total+= float(eval(line))
-            line = moneyBook.readline()
-            if self.total <= 0:
-                messagebox.showinfo("GAME OVER.","Your in debt.")
-                self.main_window.destroy()
-        moneyBook.close()
-    
-            
-        self.bet_window= Toplevel()
-        self.label= Label(self.bet_window, \
-                          text= 'Please enter the amount of money you wish to bet:')
-        # total= 
-        self.bank= 'You have ' + str(self.total) + ' Dollars in your bank account.'
-        
-        self.label2 = Label(self.bet_window, \
-                            text= self.bank)
-        self.entry= Entry(self.bet_window, \
-                          width= 30)
-        self.ok_button= Button(self.bet_window, \
-                               text= "   Let's race!    ", \
-                               command = self.start_race)
-        self.ok_button2= Button(self.bet_window, \
-                               text= '      Return        ', \
-                               command = self.quit_race)
-        self.label.pack()
-        self.label2.pack()
-        self.entry.pack()
-        self.ok_button.pack()
-        self.ok_button2.pack()
-
-#-------------------------------------------------------------------------------
-    def quit_race(self):
-        self.bet_window.destroy()
 #--------------------------------------------------------------------------------
 # display the stats of the current car in new window
 #--------------------------------------------------------------------------------
@@ -394,25 +313,15 @@ class Structure:
         self.stats_canvas.pack()
 
         # labels
-        self.label1= Label(self.bottom_Frame, \
-                           text= horsepower_string)
-        self.label2= Label(self.bottom_Frame, \
-                           text= acceleration_string)
-        self.label3= Label(self.bottom_Frame, \
-                           text= topspeed_string)
-        self.label4= Label(self.bottom_Frame, \
-                           text= torque_string)
-        self.label5= Label(self.bottom_Frame, \
-                           text= rpm_string)
-        self.label6= Label(self.bottom_Frame, \
-                           text= cost_string)
-        self.label7= Label(self.bottom_Frame, \
-                           text= crashFactor_string)
-        self.label8= Label(self.bottom_Frame, \
-                           text= carName)
-        self.ok_button= Button(self.car_window, \
-                               text= 'Back', \
-                               command = self.quit_car)
+        self.label1= Label(self.bottom_Frame, text= horsepower_string)
+        self.label2= Label(self.bottom_Frame, text= acceleration_string)
+        self.label3= Label(self.bottom_Frame, text= topspeed_string)
+        self.label4= Label(self.bottom_Frame, text= torque_string)
+        self.label5= Label(self.bottom_Frame, text= rpm_string)
+        self.label6= Label(self.bottom_Frame, text= cost_string)
+        self.label7= Label(self.bottom_Frame, text= crashFactor_string)
+        self.label8= Label(self.bottom_Frame, text= carName)
+        self.ok_button= Button(self.car_window, text= 'Back', command = self.quit_car)
         
         self.label8.pack()
         self.label1.pack()
@@ -423,7 +332,6 @@ class Structure:
         self.label6.pack()
         self.label7.pack()
         
-
         self.top_Frame.pack()
         self.bottom_Frame.pack()
         self.ok_button.pack()
@@ -433,57 +341,27 @@ class Structure:
     def quit_car(self):
         self.car_window.destroy()
 
-#------------------------------------------------------------------------
-# this allows the user to upgrade their car
-# it validates that they have enough money
-# and tells the user when they own every car
-#------------------------------------------------------------------------
-    def upgrade(self):
-        try:
-            if self.total > 4000:
-                self.carNum+= 1
-                self.total-= 4000
-                new_car = character.Character(self.character, self.carNum)
-                self.carName= new_car.get_car()
-                moneyBook = open("MoneyFile.txt","a")
-                moneyBook.write(str(-4000)+"\n")
-                moneyBook.close()
-                self.ingame_screen.destroy()
-                self.show_stats()
-            else:
-                self.message= "You don't have enough money, it costs 4,000$ to upgrade your car. " + \
-                              '\n You only have: ' + str(self.total)
-                              
-                messagebox.showinfo('error', self.message)
-        except IndexError:
-            messagebox.showinfo('Congratulations', 'You have won Project Racer!')
-            self.main_window.destroy()
-        except:
-            messagebox.showinfo('ERROR:', 'You have to race before upgrading your car!')
-            self.ingame_screen.destroy()
-            self.show_stats()
-
-#------------------------------------------------------------------------
-# shows credits
-#------------------------------------------------------------------------
-    def show_credits(self):
-        message= 'By Max Aaronson and Mustafa Celebi \n' + \
-                 'Song: Kickstart My Heart by Motley Crue \n' + \
-                 'All photos used were found by Google image search\n' +\
-                 ''
-        messagebox.showinfo('info', message)
-
-#------------------------------------------------------------------------
-# Toggle music on/off
-#------------------------------------------------------------------------
-    def toggleSound(s):
-        global MUSIC_PLAYING
-        if MUSIC_PLAYING == 0:
-            pygame.mixer.music.unpause()
-            MUSIC_PLAYING = 1
-        else:
-            pygame.mixer.music.pause()
-            MUSIC_PLAYING = 0;
+#--------------------------------------------------------------------------------
+# Place a bet
+#--------------------------------------------------------------------------------
+    def place_bet(self):
+        if self.moneyBook <= 0:
+            messagebox.showinfo("GAME OVER.","Your in debt.")
+            self.main_window.destroy()    
+            
+        self.bet_window= Toplevel()
+        self.label= Label(self.bet_window, text= 'Please enter the amount of money you wish to bet:')
+        self.bank= 'You have $' + str("%8.2f" % (self.moneyBook)) + ' Dollars in your bank account.' 
+        
+        self.label2 = Label(self.bet_window, text= self.bank)
+        self.entry= Entry(self.bet_window, width= 30)
+        self.ok_button= Button(self.bet_window, text= "   Let's race!    ", command = self.start_race)
+        self.ok_button2= Button(self.bet_window, text= '      Return        ', command = self.quit_race)
+        self.label.pack()
+        self.label2.pack()
+        self.entry.pack()
+        self.ok_button.pack()
+        self.ok_button2.pack()
 
 #------------------------------------------------------------------------
 # Start Race:
@@ -492,10 +370,12 @@ class Structure:
 # and shows a message box of how much the user won or lost
 #------------------------------------------------------------------------
     def start_race(self):
-        print(self.total)
+        print("Wallet balance: " + str("%8.2f" % (self.moneyBook)))
+        self.moneyWon = 0
+        self.moneyLost = 0
         bet = self.entry.get()
         try: 
-            if float(bet) > self.total:
+            if float(bet) > self.moneyBook:
                 self.bet_window.destroy()
                 messagebox.showinfo('info', "You don't have that much!!")
                 self.place_bet()
@@ -528,117 +408,114 @@ class Structure:
                 carName = car[self.carName]
                 carName = carName[-1]
                 racer = RaceOutcome.RaceOutcome(carName,bet)
-                result = random.randrange(1,4,1)
+                result = random.randrange(1,5,1)
+
+                # if the user won
                 if result == 1:
-                    self.cost = racer.moneyWon(carName,bet,result)
-                    self.cost = self.cost*-1
-                    moneyWon = 'you have won: ' + str(self.cost) + ' Dollars'
-                    messagebox.showinfo('Race Results', moneyWon)
-                    self.pay_money()
+                    moneyWon = round(racer.moneyWon(carName,bet,result), 2)
+                    print("moneyWon = " + str(moneyWon))
+                    moneyWonMsg = 'you have won: ' + str(moneyWon) + ' Dollars'
+                    messagebox.showinfo('Race Results', moneyWonMsg)
+                    self.moneyBook+= moneyWon
                     self.bet_window.destroy()
-                elif result > 1 or result <= -1:
+                #if the user lost
+                else:
                     result = racer.getWinner(carName,bet)
-                    self.cost = racer.moneyWon(carName,bet,-1)
-                    moneyWon = 'you have lost: ' + str(self.cost) + ' Dollars'
-                    messagebox.showinfo('Race Results', moneyWon)
-                    self.pay_money()
+                    moneyLost = round(racer.moneyWon(carName,bet,-1), 2)
+                    print("moneyLost = " + str(moneyLost))
+                    moneyLostMsg = 'you have lost: ' + str(moneyLost) + ' Dollars'
+                    messagebox.showinfo('Race Results', moneyLostMsg)
+                    self.moneyBook-= moneyLost
                     self.bet_window.destroy()
+                # if arrested
                 if copSuccessful == 1:
                     self.arrested_window= Toplevel()
                     self.img9 = PhotoImage(file = 'arrested.gif')
                     ht = self.img9.height()
                     wd = self.img9.width()
-                    canvas9 = Canvas(self.arrested_window, \
-                                    height = ht, \
-                                    width = wd)      
-                    canvas9.create_image(0, 0, \
-                                        image = self.img9, \
-                                        anchor = NW \
-                                        )
+                    canvas9 = Canvas(self.arrested_window, height = ht, width = wd)      
+                    canvas9.create_image(0, 0, image = self.img9, anchor = NW)
                     
                     canvas9.pack()
-                    self.cost = random.randint(125,450)
-                    self.label= Label(self.arrested_window, \
-                                      text= 'You have been arrested. It will cost you ' + str(self.cost) + " Dollars to pay bail")
+                    self.bail = round(random.randint(125,450), 2)
+                    self.label= Label(self.arrested_window, 
+                        text= 'You have been arrested. It will cost you ' + str(self.bail) + " Dollars to pay bail")
                     
-                    self.ok_button= Button(self.arrested_window, \
-                                           text= 'Pay Bail', \
-                                           command = self.pay_bail)
-
-                    self.ok_button2= Button(self.arrested_window, \
-                                           text= 'Go to Jail', \
-                                           command = self.quit_bail)
-                
+                    self.ok_button= Button(self.arrested_window, text= 'Pay Bail', command = self.pay_bail)
+                    self.ok_button2= Button(self.arrested_window, text= 'Go to Jail', command = self.quit_bail)
                 
                     self.label.pack()
                     self.ok_button.pack()
                     self.ok_button2.pack()
         except ValueError:
             self.bet_window.destroy()
-            #messagebox.showinfo('ERROR', "You must enter a real value.")
+            messagebox.showinfo('ERROR', "You must enter a real value.")
+            self.show_stats()
+
+#------------------------------------------------------------------------
+# Upgrade function:
+# this allows the user to upgrade their car
+# it validates that they have enough money
+# and tells the user when they own every car
+#------------------------------------------------------------------------
+    def upgrade(self):
+        try:
+            if self.moneyBook > 4000:
+                self.carNum+= 1
+                self.moneyBook-= 4000
+                new_car = character.Character(self.character, self.carNum)
+                self.carName= new_car.get_car()
+                self.ingame_screen.destroy()
+                self.show_stats()
+            else:
+                self.message= "You don't have enough money, it costs 4,000$ to upgrade your car. " + \
+                              '\n You only have: ' + str(self.moneyBook)
+                              
+                messagebox.showinfo('error', self.message)
+        except IndexError:
+            messagebox.showinfo('Congratulations', 'You have won Project Racer!')
+            self.main_window.destroy()
+        except:
+            messagebox.showinfo('ERROR:', 'You have to race before upgrading your car!')
+            self.ingame_screen.destroy()
             self.show_stats()
 
 #------------------------------------------------------------------------------
 # Money functions
 #------------------------------------------------------------------------------            
-    def money(self,moneyWon):
-        moneyBook = open("MoneyFile.txt","a")
-        moneyBook.write(str(moneyWon))
-        moneyBook.close()
-        print(self.total)
+
         
-
     def pay_bail(self):
-        moneyBook = open("MoneyFile.txt","a")
-        moneyBook.write(str(-self.cost))
-        moneyBook.close()
+        self.moneyBook-= self.bail
         self.arrested_window.destroy()
-
-    def pay_money(self):
-        moneyBook = open("MoneyFile.txt","a")
-        moneyBook.write(str(self.cost))
-        moneyBook.write(str(self.cost))
-        moneyBook.close()
 
     def quit_bail(self):
         self.arrested_window.destroy()
         repair = "You're in prison and the police have taken your car. GAME OVER."
         messagebox.showinfo('Race Results', repair)
         self.main_window.destroy()
-              
 
     def repair_window(self):
         self.repair_window= Toplevel()
         self.img6 = PhotoImage(file = 'crashImage.gif')
         ht = self.img6.height()
         wd = self.img6.width()
-        canvas5 = Canvas(self.repair_window, \
-                        height = ht, \
-                        width = wd)      
-        canvas5.create_image(0, 0, \
-                            image = self.img6, \
-                            anchor = NW \
-                            )
+        canvas5 = Canvas(self.repair_window, height = ht, width = wd)      
+        canvas5.create_image(0, 0, image = self.img6, anchor = NW)
         
         canvas5.pack()
-        self.cost = random.randint(400,1000)
-        self.label= Label(self.repair_window, \
-                          text= 'You have damaged your car, it will take $' + str(self.cost) + ' to repair the damages, would you like to pay the damages?') 
+        self.repairCost = round(random.randint(400,1000), 2)
+        self.label= Label(self.repair_window, text= 'You have damaged your car, it will take $' + 
+            str(repairCost) + ' to repair the damages, would you like to pay the damages?') 
         
-        self.ok_button= Button(self.repair_window, \
-                               text= 'Yes', \
-                               command = self.repair)
-        self.ok_button2= Button(self.repair_window, \
-                               text= 'No', \
-                               command = self.noRepair)
+        self.ok_button= Button(self.repair_window, text= 'Yes', command = self.repair)
+        self.ok_button2= Button(self.repair_window, text= 'No', command = self.noRepair)
         self.label.pack()
         self.ok_button.pack()
         self.ok_button2.pack()
 
     def repair(self):
-        moneyBook = open("MoneyFile.txt","a")
-        moneyBook.write(str(-self.cost))
-        moneyBook.close()
+        self.moneyBook-= self.repairCost
         self.repair_window.destroy()
         
 
@@ -648,11 +525,36 @@ class Structure:
         self.main_window.destroy()
 
 #--------------------------------------------------------------------------------
-# ingame quit
+# quit funcitons
 #--------------------------------------------------------------------------------
     def ingame_quit(self):
         self.main_window.destroy()        
-       
+
+    def quit_race(self):
+        self.bet_window.destroy()
+    
+#------------------------------------------------------------------------
+# shows credits
+#------------------------------------------------------------------------
+    def show_credits(self):
+        message= 'By Max Aaronson and Mustafa Celebi \n' + \
+                 'Song: Kickstart My Heart by Motley Crue \n' + \
+                 'All photos used were found by Google image search\n' +\
+                 ''
+        messagebox.showinfo('info', message)
+
+#------------------------------------------------------------------------
+# Toggle music on/off
+#------------------------------------------------------------------------
+    def toggleSound(s):
+        global MUSIC_PLAYING
+        if MUSIC_PLAYING == 0:
+            pygame.mixer.music.unpause()
+            MUSIC_PLAYING = 1
+        else:
+            pygame.mixer.music.pause()
+            MUSIC_PLAYING = 0;
+
 #--------------------------------------------------------------------------------
 # End of class definition
 #--------------------------------------------------------------------------------
@@ -662,8 +564,8 @@ class Structure:
 pygame.mixer.init(frequency=22050, size=-16, channels=2, buffer=4096)
 sound = pygame.mixer.music.load('data/ingame/kmh.wav')
 clock = pygame.time.Clock()
-pygame.mixer.music.play()
-MUSIC_PLAYING = 1
+#pygame.mixer.music.play()
+#MUSIC_PLAYING = 1
 
 st= Structure()
 

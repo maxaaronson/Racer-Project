@@ -15,6 +15,7 @@ import speedGenerator
 import distanceTimeCalculator
 import RaceOutcome
 import sqlite3
+import Race
 import random
 import pygame
 
@@ -25,8 +26,11 @@ class Structure:
 
         # gives the player 90,000 dollars to start with as a demonstration that the upgrades work
         # in the real game we would give the player 2000$
-        self.moneyBook = 90000
+        self.moneyBook = float(20000.00)
+        self.numRaces = 0
 
+        # 1/odds = odds of winning. Decreases as the player gains experience 
+        self.odds = 5
         
         # main interface only needs one Frame
         self.top_Frame= Frame(self.main_window, relief="raised", border=2)
@@ -87,8 +91,8 @@ class Structure:
                  'Each character starts with a different car and the races are randomly generated.\n\n' + \
                  "The races are determined by the car's actual performance, but the fastest car doesn't always win!\n\n" + \
                  'Before every race, You will be able to bet your money. You can wager as much money as you have in your bank account.\n\n' + \
-                 'As you acquire more and more money, you can buy a new car with more performance and increase your odds!\n\n' + \
-                 'Remember: Do no race in real life!'
+                 'As you gain experience racing, you increase your odds of winning.  Upgrade to every car to win the game!\n\n' + \
+                 ''
         messagebox.showinfo('Instruction', message)
 
 #--------------------------------------------------------------------------------
@@ -136,8 +140,6 @@ class Structure:
         self.bottom_Frame.pack(side= 'bottom')
         self.left_Frame.pack(side= 'left')
         self.right_Frame.pack(side= 'left')
-
-        mainloop()       
 
 #--------------------------------------------------------------------------------
 # Character information window
@@ -221,6 +223,8 @@ class Structure:
         carName = carName[self.carNum]
         carName = str(carName[-1])
 
+        # hide the main window
+        self.main_window.withdraw()
         self.ingame_screen= Toplevel()
 
         self.top_Frame= (self.ingame_screen)
@@ -266,8 +270,6 @@ class Structure:
         self.stats_button.pack(side = 'left')
         self.upgrade_button.pack(side = 'left')
         self.back_button.pack(side = 'left')
-
-        mainloop()
 
 #--------------------------------------------------------------------------------
 # display the stats of the current car in new window
@@ -336,8 +338,6 @@ class Structure:
         self.bottom_Frame.pack()
         self.ok_button.pack()
 
-        mainloop()
-
     def quit_car(self):
         self.car_window.destroy()
 
@@ -346,22 +346,24 @@ class Structure:
 #--------------------------------------------------------------------------------
     def place_bet(self):
         if self.moneyBook <= 0:
-            messagebox.showinfo("GAME OVER.","Your in debt.")
+            messagebox.showinfo("GAME OVER.","You ran out of cash!")
+            self.bet_window.destroy()
             self.main_window.destroy()    
+        else:
+
+            self.bet_window= Toplevel()
+            self.label= Label(self.bet_window, text= 'Please enter the amount of money you wish to bet:')
+            self.bank= 'You have $' + str("%8.2f" % (self.moneyBook)) + ' Dollars in your bank account.' 
             
-        self.bet_window= Toplevel()
-        self.label= Label(self.bet_window, text= 'Please enter the amount of money you wish to bet:')
-        self.bank= 'You have $' + str("%8.2f" % (self.moneyBook)) + ' Dollars in your bank account.' 
-        
-        self.label2 = Label(self.bet_window, text= self.bank)
-        self.entry= Entry(self.bet_window, width= 30)
-        self.ok_button= Button(self.bet_window, text= "   Let's race!    ", command = self.start_race)
-        self.ok_button2= Button(self.bet_window, text= '      Return        ', command = self.quit_race)
-        self.label.pack()
-        self.label2.pack()
-        self.entry.pack()
-        self.ok_button.pack()
-        self.ok_button2.pack()
+            self.label2 = Label(self.bet_window, text= self.bank)
+            self.entry= Entry(self.bet_window, width= 30)
+            self.ok_button= Button(self.bet_window, text= "   Let's race!    ", command = self.start_race)
+            self.ok_button2= Button(self.bet_window, text= '      Return        ', command = self.quit_race)
+            self.label.pack()
+            self.label2.pack()
+            self.entry.pack()
+            self.ok_button.pack()
+            self.ok_button2.pack()
 
 #------------------------------------------------------------------------
 # Start Race:
@@ -373,13 +375,16 @@ class Structure:
         print("Wallet balance: " + str("%8.2f" % (self.moneyBook)))
         self.moneyWon = 0
         self.moneyLost = 0
-        bet = self.entry.get()
         try: 
-            if float(bet) > self.moneyBook:
+            bet = float(self.entry.get())
+
+            if bet > self.moneyBook:
                 self.bet_window.destroy()
                 messagebox.showinfo('info', "You don't have that much!!")
                 self.place_bet()
             else:
+                self.numRaces+=1
+                print(self.numRaces)
                 carNum = 1
                 connection = sqlite3.connect('car')
                 cursor = connection.cursor()
@@ -408,25 +413,35 @@ class Structure:
                 carName = car[self.carName]
                 carName = carName[-1]
                 racer = RaceOutcome.RaceOutcome(carName,bet)
-                result = random.randrange(1,5,1)
+                
+                if self.numRaces == 5:
+                    self.odds = 4
+                    messagebox.showinfo('Great job!', "Your odds of winning have increased!")
+
+                if self.numRaces == 10:
+                    self.odds = 3
+                    messagebox.showinfo('Great job!', "Your odds of winning have increased again!")
+
+                result = random.randrange(1,self.odds,1)
 
                 # if the user won
                 if result == 1:
                     moneyWon = round(racer.moneyWon(carName,bet,result), 2)
                     print("moneyWon = " + str(moneyWon))
-                    moneyWonMsg = 'you have won: ' + str(moneyWon) + ' Dollars'
+                    moneyWonMsg = 'you have won: ' + str("%8.2f" % moneyWon) + ' Dollars'
                     messagebox.showinfo('Race Results', moneyWonMsg)
                     self.moneyBook+= moneyWon
                     self.bet_window.destroy()
                 #if the user lost
                 else:
-                    result = racer.getWinner(carName,bet)
                     moneyLost = round(racer.moneyWon(carName,bet,-1), 2)
                     print("moneyLost = " + str(moneyLost))
-                    moneyLostMsg = 'you have lost: ' + str(moneyLost) + ' Dollars'
+                    moneyLostMsg = 'you have lost: ' + str("%8.2f" % moneyLost) + ' Dollars'
                     messagebox.showinfo('Race Results', moneyLostMsg)
                     self.moneyBook-= moneyLost
                     self.bet_window.destroy()
+                    result = self.getWinner(carName,bet)
+
                 # if arrested
                 if copSuccessful == 1:
                     self.arrested_window= Toplevel()
@@ -450,7 +465,93 @@ class Structure:
         except ValueError:
             self.bet_window.destroy()
             messagebox.showinfo('ERROR', "You must enter a real value.")
-            self.show_stats()
+#------------------------------------------------------------------------
+
+#----------------------------------------------------------------
+    def getWinner(self,carName,bet):
+
+        randomCarList = ["Alfa Romeo 8C","BMW 525d","Bugatti Veyron","Cadillac CTS Coupe","Camaro SS",
+                 "Ferrari F430","Mazda RX-8","Nissan Sentra","Shelby GT500","Subaru Outback",
+                 "Suzuki Hayabusa","Toyota Camry"]
+
+        racers = Race.Race(carName,bet)
+        racerList1 = racers.getRacer1(carName)
+        racer2 = randomCarList[random.randint(0,11)]
+        racer3 = randomCarList[random.randint(0,11)]
+        racer4 = randomCarList[random.randint(0,11)]
+        racerList2 = racers.getRacer2(racer2)
+        racerList3 = racers.getRacer3(racer3)
+        racerList4 = racers.getRacer4(racer4)
+        result = racers.getRacerWinner(racerList1,racerList2,racerList3,racerList4)
+
+        if result == 2:
+            self.win_window= Toplevel()
+            self.img6 = PhotoImage(file = 'data/cars/' + str(racer2) + '.gif')
+            ht = self.img6.height()
+            wd = self.img6.width()
+            canvas5 = Canvas(self.win_window, height = ht, width = wd)      
+            canvas5.create_image(0, 0, image = self.img6, anchor = NW)
+            
+            canvas5.pack()
+            self.cost = bet
+            self.label= Label(self.win_window, text= 'You have been beaten by a random racer with the ' + str(racer2)) 
+            
+            self.ok_button= Button(self.win_window, text= 'Ok', command = self.quit_result)
+        
+            self.label.pack()
+            self.ok_button.pack()
+        elif result == 3:
+            self.win_window1= Toplevel()
+            self.img7 = PhotoImage(file = 'data/cars/' + str(racer3) + '.gif')
+            ht = self.img7.height()
+            wd = self.img7.width()
+            canvas7 = Canvas(self.win_window1, \
+                            height = ht, \
+                            width = wd)      
+            canvas7.create_image(0, 0, \
+                                image = self.img7, \
+                                anchor = NW \
+                                )
+            
+            canvas7.pack()
+            self.cost = bet
+            self.label= Label(self.win_window1, \
+                              text= 'You have been beaten by a random racer with the ' + str(racer3)) 
+            
+            self.ok_button= Button(self.win_window1, \
+                                   text= 'Ok', \
+                                   command = self.quit_result1)
+        
+            self.label.pack()
+            self.ok_button.pack()
+        elif result == 4:
+            self.win_window2= Toplevel()
+            self.img8 = PhotoImage(file = 'data/cars/' + str(racer4) + '.gif')
+            ht = self.img8.height()
+            wd = self.img8.width()
+            canvas8 = Canvas(self.win_window2, \
+                            height = ht, \
+                            width = wd)      
+            canvas8.create_image(0, 0, \
+                                image = self.img8, \
+                                anchor = NW \
+                                )
+            
+            canvas8.pack()
+
+            self.label= Label(self.win_window2, \
+                              text= 'You have been beaten by a random racer with the ' + str(racer4)) 
+            
+            self.ok_button= Button(self.win_window2, \
+                                   text= 'Ok', \
+                                   command = self.quit_result2)
+        
+            self.label.pack()
+            self.ok_button.pack()
+        return result
+
+
+
 
 #------------------------------------------------------------------------
 # Upgrade function:
@@ -463,28 +564,23 @@ class Structure:
             if self.moneyBook > 4000:
                 self.carNum+= 1
                 self.moneyBook-= 4000
-                new_car = character.Character(self.character, self.carNum)
+                new_car = Character.Character(self.character, self.carNum)
                 self.carName= new_car.get_car()
+                messagebox.showinfo('Upgraded', "Car upgraded for $4,000!")
                 self.ingame_screen.destroy()
                 self.show_stats()
             else:
-                self.message= "You don't have enough money, it costs 4,000$ to upgrade your car. " + \
+                self.message= "You don't have enough money, it costs $4,000 to upgrade your car. " + \
                               '\n You only have: ' + str(self.moneyBook)
                               
                 messagebox.showinfo('error', self.message)
         except IndexError:
             messagebox.showinfo('Congratulations', 'You have won Project Racer!')
             self.main_window.destroy()
-        except:
-            messagebox.showinfo('ERROR:', 'You have to race before upgrading your car!')
-            self.ingame_screen.destroy()
-            self.show_stats()
 
 #------------------------------------------------------------------------------
 # Money functions
-#------------------------------------------------------------------------------            
-
-        
+#------------------------------------------------------------------------------                    
     def pay_bail(self):
         self.moneyBook-= self.bail
         self.arrested_window.destroy()
@@ -532,6 +628,15 @@ class Structure:
 
     def quit_race(self):
         self.bet_window.destroy()
+
+    def quit_result(self):
+        self.win_window.destroy()
+
+    def quit_result1(self):
+        self.win_window1.destroy()
+
+    def quit_result2(self):
+        self.win_window2.destroy()
     
 #------------------------------------------------------------------------
 # shows credits

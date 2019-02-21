@@ -135,7 +135,7 @@ class SpeedAlgorithm:
 
         return copSuccessful
 
-    
+
     def getCrash(self,crashFactor):
         damage = random.uniform(0,10)
         crashProbability = random.uniform(-2,2)*crashFactor
@@ -150,7 +150,7 @@ class SpeedAlgorithm:
     def getMoney(self,crashFactor,bet):
         print("bet = " + str(bet))
         print("crashFactor = " + str(crashFactor))
-        money = random.uniform(0,1)*crashFactor*int(bet)
+        money = random.uniform(1,4)*crashFactor*int(bet)
         print("result = " + str(money))
         return money
         

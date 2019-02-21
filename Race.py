@@ -132,8 +132,6 @@ class Race:
             racer = -4
         return racer
         
-
-
     def moneyEarned(self,carName,bet):
         car = readCarDatabase.readCarDatabase(carName)
         horsepower = car.getHorsepower(carName)
@@ -143,18 +141,18 @@ class Race:
         RPM = car.getRPM(carName)
         racerMoney = 0
         crashFactor = car.getCrashFactor(carName)
-        money = speedAlgorithm.SpeedAlgorithm(horsepower,acceleration,topSpeed,torque,RPM,crashFactor)
-        racerMoney += money.getMoney(crashFactor,bet)
-        moneyBook = open("MoneyFile.txt","a")
-        moneyBook.write(str(int(racerMoney))+"\n")
-        moneyBook = open("MoneyFile.txt","r")
-        line = moneyBook.readline()
-        total = 0
-        while line !="":
-            total+=float(line)
-            line = moneyBook.readline()
-        moneyBook.close()
-        return int(racerMoney)
+        algorithm = speedAlgorithm.SpeedAlgorithm(horsepower,acceleration,topSpeed,torque,RPM,crashFactor)
+        racerMoney = algorithm.getMoney(crashFactor,bet)
+        # moneyBook = open("MoneyFile.txt","a")
+        # moneyBook.write(str(int(racerMoney))+"\n")
+        # moneyBook = open("MoneyFile.txt","r")
+        # line = moneyBook.readline()
+        # total = 0
+        # while line !="":
+        #     total+=float(line)
+        #     line = moneyBook.readline()
+        # moneyBook.close()
+        return racerMoney
    
     
     

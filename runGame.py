@@ -669,8 +669,8 @@ class Structure:
 pygame.mixer.init(frequency=22050, size=-16, channels=2, buffer=4096)
 sound = pygame.mixer.music.load('data/ingame/kmh.wav')
 clock = pygame.time.Clock()
-#pygame.mixer.music.play()
-#MUSIC_PLAYING = 1
+pygame.mixer.music.play()
+MUSIC_PLAYING = 1
 
 st= Structure()
 

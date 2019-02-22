@@ -3,17 +3,6 @@ Name: Jennifer Tompson
 Age: 21
 Height: 5.7
 Weight: 110
-Job: College Student
-favoriteCar: Mazda RX-8
-
-Background:
-	
-Born into a family with a lot of problems, 
-Jennifer often found herself jumping into her Mazda and running away.
-When her parents found out she was gone, they would call the cops and have her arrested. 
-Though she was eventually caught, her amazing driving skills made her almost escape a 50 police unit chase.
-After a couple years in a NY state penitentiary, Jennifer went to Binghamton University, where she majors in nursing.
-Unfortunately, her little brother Frank fell gravely ill with cancer and her parents cannot afford the treatment.
-Faced with such situations, Jennifer found herself wagering money against other racers in order to pay for her brother's hospital bills.
+favorite Car: Mazda RX-8
 
 

@@ -11,10 +11,6 @@ class RaceOutcome:
         self.__carName = carName
         self.__bet = bet
 
-
-
-
-
     def moneyWon(self,carName,bet,result):
         racers = Race.Race(self.__carName,bet)
         if result == 1:
